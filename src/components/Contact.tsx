@@ -1,0 +1,118 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "motion/react";
+import { Mail, Phone, MapPin, Check, Copy } from "lucide-react";
+
+const contactInfo = [
+  { icon: Mail, label: "Email", value: "marketing@sixlightmedia.com" },
+  { icon: Phone, label: "Phone", value: "+260 971 782 375" },
+  { icon: Mail, label: "Email", value: "shop@sixlightmedia.com" },
+  { icon: Phone, label: "Phone", value: "+260 971 781 907" },
+  { icon: Mail, label: "Email", value: "pinnacle@sixlightmedia.com" },
+  { icon: Phone, label: "Phone", value: "+260 974 594 572" },
+];
+
+const locations = [
+  {
+    name: "Headquarters",
+    address: "1265 Fulwe Close, Rhodespark Lusaka, Zambia",
+  },
+  { name: "Branch Office", address: "Shop No. 91, EastPark Mall" },
+  {
+    name: "Branch Office",
+    address: "Pinnacle mall",
+  },
+];
+
+const CopyableInfo = ({ icon: Icon, label, value }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-between p-4 bg-gray-100 dark:bg-black rounded-lg">
+      <div className="flex items-center">
+        <Icon className="text-primary mr-4" />
+        <div>
+          <p className="font-medium">{label}</p>
+          <p>{value}</p>
+        </div>
+      </div>
+      <button
+        onClick={handleCopy}
+        className="p-2 text-gray-500 hover:text-primary transition-colors duration-200"
+        aria-label={`Copy ${label}`}
+      >
+        {copied ? <Check className="text-green-500" /> : <Copy />}
+      </button>
+    </div>
+  );
+};
+
+const Contact = () => {
+  return (
+    <section id="contact" className="py-20 bg-white dark:bg-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-center text-black dark:text-gray-200 mb-12"
+        >
+          Contact Us
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-6"
+          >
+            <h3 className="text-2xl font-semibold mb-6 text-red-700">
+              Get in Touch
+            </h3>
+            {contactInfo.map((info, index) => (
+              <CopyableInfo key={index} {...info} />
+            ))}
+            {/* <div className="mt-8">
+              <h4 className="text-xl font-semibold mb-4">Business Hours</h4>
+              <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+              <p>Saturday: 10:00 AM - 4:00 PM</p>
+              <p>Sunday: Closed</p>
+            </div> */}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-semibold mb-6 text-red-700">
+              Our Locations
+            </h3>
+            <div className="space-y-6">
+              {locations.map((location, index) => (
+                <CopyableInfo
+                  key={index}
+                  icon={MapPin}
+                  label={location.name}
+                  value={location.address}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
