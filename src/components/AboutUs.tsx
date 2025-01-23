@@ -123,8 +123,8 @@ const AboutUs = () => {
               Customer Focus
             </h4>
             <p className="text-gray-600 dark:text-gray-300">
-              Our clients' success is our success. We work closely with each
-              client to understand and meet their unique needs.
+              Our clients&apos; success is our success. We work closely with
+              each client to understand and meet their unique needs.
             </p>
           </div>
         </motion.div>

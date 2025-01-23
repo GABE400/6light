@@ -1,10 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
-import { Mail, Phone, MapPin, Check, Copy } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Check,
+  Copy,
+  type LucideIcon,
+} from "lucide-react";
 
-const contactInfo = [
+interface ContactInfo {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+}
+
+interface Location {
+  name: string;
+  address: string;
+}
+
+const contactInfo: ContactInfo[] = [
   { icon: Mail, label: "Email", value: "marketing@sixlightmedia.com" },
   { icon: Phone, label: "Phone", value: "+260 971 782 375" },
   { icon: Mail, label: "Email", value: "shop@sixlightmedia.com" },
@@ -13,7 +31,7 @@ const contactInfo = [
   { icon: Phone, label: "Phone", value: "+260 974 594 572" },
 ];
 
-const locations = [
+const locations: Location[] = [
   {
     name: "Headquarters",
     address: "1265 Fulwe Close, Rhodespark Lusaka, Zambia",
@@ -25,7 +43,17 @@ const locations = [
   },
 ];
 
-const CopyableInfo = ({ icon: Icon, label, value }) => {
+interface CopyableInfoProps {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+}
+
+const CopyableInfo: React.FC<CopyableInfoProps> = ({
+  icon: Icon,
+  label,
+  value,
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -58,7 +86,7 @@ const CopyableInfo = ({ icon: Icon, label, value }) => {
   );
 };
 
-const Contact = () => {
+const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-20 bg-white dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,12 +111,6 @@ const Contact = () => {
             {contactInfo.map((info, index) => (
               <CopyableInfo key={index} {...info} />
             ))}
-            {/* <div className="mt-8">
-              <h4 className="text-xl font-semibold mb-4">Business Hours</h4>
-              <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-              <p>Saturday: 10:00 AM - 4:00 PM</p>
-              <p>Sunday: Closed</p>
-            </div> */}
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}

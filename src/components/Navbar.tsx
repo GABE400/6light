@@ -44,6 +44,7 @@ const ThemeToggle = () => {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 

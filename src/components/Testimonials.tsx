@@ -4,7 +4,15 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
-const testimonials = [
+interface Testimonial {
+  id: number;
+  name: string;
+  company: string;
+  quote: string;
+  rating: number;
+}
+
+const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Charles Michael Daka",
@@ -55,7 +63,11 @@ const testimonials = [
   },
 ];
 
-const TestimonialCard = ({ testimonial }) => (
+interface TestimonialCardProps {
+  testimonial: Testimonial;
+}
+
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
   <div className="bg-white dark:bg-red-800 p-6 rounded-lg shadow-md w-[300px] h-[300px] mx-4 flex flex-col justify-between flex-shrink-0">
     <div>
       <div className="flex items-center mb-2">
@@ -78,7 +90,15 @@ const TestimonialCard = ({ testimonial }) => (
   </div>
 );
 
-const InfiniteMovingCards = ({ items, direction }) => {
+interface InfiniteMovingCardsProps {
+  items: Testimonial[];
+  direction: "left" | "right";
+}
+
+const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
+  items,
+  direction,
+}) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -125,7 +145,7 @@ const InfiniteMovingCards = ({ items, direction }) => {
   );
 };
 
-const Testimonials = () => {
+const Testimonials: React.FC = () => {
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
