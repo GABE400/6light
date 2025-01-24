@@ -113,7 +113,7 @@ const Services = () => {
         >
           <Link
             href="/contact"
-            className="bg-primary hover:bg-primary-dark bg-yellow-400 text-black px-8 py-3 rounded-full text-lg font-semibold transition duration-300 inline-block transform hover:scale-105"
+            className="bg-primary hover:bg-primary-dark bg-red-800 dark:bg-yellow-400 text-white dark:text-black px-8 py-3 rounded-full text-lg font-semibold transition duration-300 inline-block transform hover:scale-105"
           >
             Get a Custom Quote
           </Link>
