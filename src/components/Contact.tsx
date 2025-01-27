@@ -77,10 +77,13 @@ const CopyableInfo: React.FC<CopyableInfoProps> = ({
       </div>
       <button
         onClick={handleCopy}
-        className="p-2 text-gray-500 hover:text-primary transition-colors duration-200"
+        className="p-2 text-gray-500 hover:text-primary transition-colors duration-200 relative group"
         aria-label={`Copy ${label}`}
       >
         {copied ? <Check className="text-green-500" /> : <Copy />}
+        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          {copied ? "Copied!" : "Copy to clipboard"}
+        </span>
       </button>
     </div>
   );
@@ -98,6 +101,10 @@ const Contact: React.FC = () => {
         >
           Contact Us
         </motion.h2>
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+          Click on the copy icon next to any email or phone number to copy it to
+          your clipboard.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}

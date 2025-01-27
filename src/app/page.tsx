@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import OurClients from "@/components/OurClients";
 import Portfolio from "@/components/Portfolio";
@@ -52,7 +51,6 @@ export default function Home() {
           <Portfolio />
           <OurClients />
           <Testimonials />
-          <Contact />
         </div>
         <AnimatePresence>
           {showScrollButton && (

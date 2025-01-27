@@ -1,0 +1,152 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+import HeroShops from "@/components/HeroShops";
+import Products from "@/components/Products";
+
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+
+interface Shop {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  hours: string;
+  image: string;
+  mapUrl: string;
+  coordinates: [number, number];
+}
+
+const shops: Shop[] = [
+  //   {
+  //     id: "headquarters",
+  //     name: "6 Light Media Headquarters",
+  //     address: "1265 Fulwe Close, Rhodespark, Lusaka, Zambia",
+  //     phone: "+260 971 782 375",
+  //     hours: "Monday - Friday: 8:00 AM - 5:00 PM",
+  //     image: "/shops/headquarters.jpg",
+  //     mapUrl: "https://goo.gl/maps/1234567890",
+  //     coordinates: [-15.3875, 28.3228],
+  //   },
+  {
+    id: "eastpark",
+    name: "EastPark Mall Branch",
+    address: "Shop No. 91, EastPark Mall, Lusaka, Zambia",
+    phone: "+260 971 781 907",
+    hours:
+      "Monday - Friday: 08:00 AM - 18:00 PM | Saturday - 09:00 AM to 13:00 PM | Sunday: Closed",
+    image: "/shops/eastpark-mall.jpg",
+    mapUrl: "https://goo.gl/maps/0987654321",
+    coordinates: [-15.4103, 28.3085],
+  },
+  {
+    id: "pinnacle",
+    name: "Pinnacle Mall Branch",
+    address: "Pinnacle Mall, Lusaka, Zambia",
+    phone: "+260 974 594 572",
+    hours:
+      "Monday - Friday: 08:00 AM - 18:00 PM, Saturday - Sunday: 09:00 AM - 13:00 PM",
+    image: "/shops/pinnacle-mall.jpg",
+    mapUrl: "https://goo.gl/maps/1357924680",
+    coordinates: [-15.3986, 28.3248],
+  },
+];
+
+const products = [
+  { id: 1, image: "/shops/1.jpg" },
+  { id: 2, image: "/shops/2.jpg" },
+  { id: 3, image: "/shops/3.jpg" },
+  { id: 4, image: "/shops/4.jpg" },
+  { id: 5, image: "/shops/5.jpg" },
+  { id: 6, image: "/shops/6.jpg" },
+  { id: 7, image: "/shops/7.jpg" },
+  { id: 8, image: "/shops/8.jpg" },
+  { id: 9, image: "/shops/9.jpg" },
+  { id: 10, image: "/shops/10.jpg" },
+  { id: 11, image: "/shops/11.jpg" },
+  { id: 12, image: "/shops/12.jpg" },
+];
+
+export default function ShopsPage() {
+  const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
+
+  return (
+    <div className="bg-gray-100 dark:bg-black min-h-screen">
+      <HeroShops
+        title="Our Shops"
+        subtitle="Visit us at one of our convenient locations in Lusaka"
+        backgroundImage="/shops/shops-hero-bg.jpg"
+      />
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <div className="space-y-8">
+            {shops.map((shop) => (
+              <motion.div
+                key={shop.id}
+                className={`bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-shadow duration-300 ${
+                  selectedShop?.id === shop.id
+                    ? "ring-2 ring-red-800"
+                    : "hover:shadow-lg"
+                }`}
+                onClick={() => setSelectedShop(shop)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="md:flex">
+                  <div className="md:flex-shrink-0">
+                    <Image
+                      src={shop.image || "/placeholder.svg"}
+                      alt={shop.name}
+                      width={200}
+                      height={200}
+                      className="h-48 w-full object-cover md:w-48"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                      {shop.name}
+                    </h2>
+                    <div className="space-y-2">
+                      <div className="flex items-start">
+                        <MapPin className="w-5 h-5 text-red-800 mr-2 mt-1 flex-shrink-0" />
+                        <p className="text-gray-600">{shop.address}</p>
+                      </div>
+                      <div className="flex items-center">
+                        <Phone className="w-5 h-5 text-red-800 mr-2 flex-shrink-0" />
+                        <p className="text-gray-600">{shop.phone}</p>
+                      </div>
+                      <div className="flex items-start">
+                        <Clock className="w-5 h-5 text-red-800 mr-2 mt-1 flex-shrink-0" />
+                        <p className="text-gray-600">{shop.hours}</p>
+                      </div>
+                    </div>
+                    <a
+                      href={shop.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center text-red-800 hover:text-red-700"
+                    >
+                      View on Google Maps
+                      <ExternalLink className="ml-1 w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="bg-white rounded-lg shadow-md overflow-hidden h-[600px]">
+            <Map shops={shops} selectedShop={selectedShop} />
+          </div>
+        </div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+          Our Services | What We Do
+        </h2>
+        <Products products={products} itemsPerPage={6} />
+      </div>
+    </div>
+  );
+}

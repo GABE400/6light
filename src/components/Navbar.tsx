@@ -8,11 +8,12 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "Services", href: "#services" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  // { name: "Services", href: "#services" },
+  // { name: "Portfolio", href: "#portfolio" },
+  // { name: "About", href: "#about" },
+  { name: "Shops", href: "/shops" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const ThemeToggle = () => {
