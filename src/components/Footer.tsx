@@ -106,8 +106,8 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-100">
           <p className="text-center text-gray-400">
             &copy; {new Date().getFullYear()} Maintained by{" "}
-            <Link href="https://www.hiregabriel.dev/" className="text-sky-300">
-              Gabriel the Developer
+            <Link href="https://www.techado.dev/" className="text-sky-300">
+              Techado Tech Limited
             </Link>
             . All rights reserved.
           </p>
