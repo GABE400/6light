@@ -144,7 +144,7 @@ const ChatBot = ({ className = "" }: { className?: string }) => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-red-800 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300"
+          className="bg-red-800 dark:bg-yellow-400 text-white dark:text-black p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300"
           aria-label="Open chat"
         >
           <MessageCircle size={24} />

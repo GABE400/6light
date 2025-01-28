@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import HeroShops from "@/components/HeroShops";
 import Products from "@/components/Products";
+import SlideShow from "@/components/SlideShow";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
@@ -88,11 +89,15 @@ const products = [
 export default function ShopsPage() {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
 
-  const heroImages = [
-    "/slides/1.jpg",
-    "/slides/2.jpg",
-    "/slides/3.jpg",
-    "/slides/4.png",
+  const heroImages = ["/slides/1.jpg", "/slides/2.jpg", "/slides/3.jpg"];
+
+  const slideShowImages = [
+    "/slides/01.jpg",
+    "/slides/02.jpg",
+    "/slides/03.jpg",
+    "/slides/04.jpg",
+    "/slides/05.jpg",
+    "/slides/06.jpg",
   ];
 
   return (
@@ -163,9 +168,49 @@ export default function ShopsPage() {
             <Map shops={shops} selectedShop={selectedShop} />
           </div>
         </div>
+        <div className="mt-16 mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            What We Do
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              "Printing, photocopying, scanning",
+              "Fabric printing",
+              "Engraving",
+              "Canvas printing and framing",
+              "Photos and passport printing",
+              "Design",
+            ].map((service, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-center">
+                  <div className="bg-red-800 rounded-full p-3 mr-4">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {service}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-          Our Services | What We Do
+          Explore Our Work
         </h2>
+        <SlideShow images={slideShowImages} />
         <Products products={products} itemsPerPage={6} />
       </div>
     </div>

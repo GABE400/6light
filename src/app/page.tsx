@@ -35,7 +35,7 @@ export default function Home() {
       <main className="relative min-h-screen">
         <div className="fixed inset-0 z-0">
           <Image
-            src="/moon.jpg"
+            src="/Moon_REV.png"
             alt="Background image"
             layout="fill"
             objectFit="cover"
@@ -59,7 +59,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               onClick={scrollToTop}
-              className="fixed bottom-8 right-8 bg-red-800 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 z-50"
+              className="fixed bottom-8 right-8 bg-red-800 dark:bg-yellow-400 text-white dark:text-black p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 z-50"
               aria-label="Scroll to top"
             >
               <ChevronUp size={24} />
