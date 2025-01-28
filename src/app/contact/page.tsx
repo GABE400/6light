@@ -1,10 +1,10 @@
 import Contact from "@/components/Contact";
-import HeroShops from "@/components/HeroShops";
+import HeroSection from "@/components/HeroSection";
 
 export default function ContactPage() {
   return (
     <>
-      <HeroShops
+      <HeroSection
         title="Contact us"
         subtitle="Get in touch with 6 Light Media"
         backgroundImage="/shops/contacthero.jpg"

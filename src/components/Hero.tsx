@@ -54,7 +54,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
       >
         <a
-          href="#services"
+          href="#about"
           className="text-white flex flex-col items-center cursor-pointer transition duration-300 hover:text-primary"
           aria-label="Scroll to services section"
         >

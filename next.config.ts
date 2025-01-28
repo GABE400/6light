@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
   },
   // Add build cache configuration
   distDir: ".next",
-  cache: {
-    type: "filesystem",
-    buildDir: ".next/cache",
-  },
 };
 
 export default nextConfig;

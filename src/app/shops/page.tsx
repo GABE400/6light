@@ -40,7 +40,7 @@ const shops: Shop[] = [
     hours:
       "Monday - Friday: 08:00 AM - 18:00 PM | Saturday - 09:00 AM to 13:00 PM | Sunday: Closed",
     image: "/shops/eastpark-mall.jpg",
-    mapUrl: "https://goo.gl/maps/0987654321",
+    mapUrl: "https://maps.app.goo.gl/DayGVmNoSzL2Y9EA7",
     coordinates: [-15.4103, 28.3085],
   },
   {
@@ -51,7 +51,7 @@ const shops: Shop[] = [
     hours:
       "Monday - Friday: 08:00 AM - 18:00 PM, Saturday - Sunday: 09:00 AM - 13:00 PM",
     image: "/shops/pinnacle-mall.jpg",
-    mapUrl: "https://goo.gl/maps/1357924680",
+    mapUrl: "https://maps.app.goo.gl/Xk7Q1tBhXfBGLnzL8",
     coordinates: [-15.3986, 28.3248],
   },
 ];
@@ -69,17 +69,38 @@ const products = [
   { id: 10, image: "/shops/10.jpg" },
   { id: 11, image: "/shops/11.jpg" },
   { id: 12, image: "/shops/12.jpg" },
+  { id: 13, image: "/shops/13.jpg" },
+  { id: 14, image: "/shops/14.jpg" },
+  { id: 15, image: "/shops/15.jpg" },
+  { id: 16, image: "/shops/16.jpg" },
+  { id: 17, image: "/shops/17.jpg" },
+  { id: 18, image: "/shops/18.jpg" },
+  { id: 19, image: "/shops/19.jpg" },
+  { id: 20, image: "/shops/20.jpg" },
+  { id: 21, image: "/shops/21.jpg" },
+  { id: 22, image: "/shops/22.jpg" },
+  { id: 23, image: "/shops/23.jpg" },
+  { id: 24, image: "/shops/24.jpg" },
+  { id: 25, image: "/shops/25.jpg" },
+  { id: 26, image: "/shops/26.jpg" },
 ];
 
 export default function ShopsPage() {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
+
+  const heroImages = [
+    "/slides/1.jpg",
+    "/slides/2.jpg",
+    "/slides/3.jpg",
+    "/slides/4.png",
+  ];
 
   return (
     <div className="bg-gray-100 dark:bg-black min-h-screen">
       <HeroShops
         title="Our Shops"
         subtitle="Visit us at one of our convenient locations in Lusaka"
-        backgroundImage="/shops/shops-hero-bg.jpg"
+        images={heroImages}
       />
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">

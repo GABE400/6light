@@ -458,6 +458,18 @@ const portfolioItems = [
     image: "/vehicle branding/12.jpg",
     title: "Vehicle Wrap Design",
   },
+  {
+    id: 76,
+    category: "signage",
+    image: "/3D signage/13.JPG",
+    title: "Corporate 3D Signage",
+  },
+  {
+    id: 77,
+    category: "signage",
+    image: "/3D signage/14.JPG",
+    title: "Corporate 3D Signage",
+  },
 ];
 
 const categories = [
