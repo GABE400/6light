@@ -330,7 +330,7 @@ const Contact: React.FC = () => {
                 <select
                   id="service"
                   {...register("service", { required: "Service is required" })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md bg-gray-200 border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 >
                   <option value="">Select a service</option>
                   {watchBranch === "main"
