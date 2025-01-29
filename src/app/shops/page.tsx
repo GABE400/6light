@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { MapPin, Phone, Clock, ExternalLink, ChevronDown } from "lucide-react";
+import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import HeroShops from "@/components/HeroShops";
 import Products from "@/components/Products";
-import SlideShow from "@/components/SlideShow";
+import GridSlideshow from "@/components/GridSlideshow";
 
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
@@ -23,16 +23,6 @@ interface Shop {
 }
 
 const shops: Shop[] = [
-  //   {
-  //     id: "headquarters",
-  //     name: "6 Light Media Headquarters",
-  //     address: "1265 Fulwe Close, Rhodespark, Lusaka, Zambia",
-  //     phone: "+260 971 782 375",
-  //     hours: "Monday - Friday: 8:00 AM - 5:00 PM",
-  //     image: "/shops/headquarters.jpg",
-  //     mapUrl: "https://goo.gl/maps/1234567890",
-  //     coordinates: [-15.3875, 28.3228],
-  //   },
   {
     id: "eastpark",
     name: "EastPark Mall Branch",
@@ -86,37 +76,153 @@ const products = [
   { id: 26, image: "/shops/26.jpg" },
 ];
 
+const services = [
+  {
+    name: "Printing, photocopying, scanning",
+    description:
+      "High-quality printing services for all your needs, from documents to large formats.",
+    icon: "🖨️",
+  },
+  {
+    name: "Fabric printing",
+    description: "Custom fabric printing for fashion, home decor, and more.",
+    icon: "🧵",
+  },
+  {
+    name: "Engraving",
+    description:
+      "Precision engraving services for various materials and purposes.",
+    icon: "✒️",
+  },
+  {
+    name: "Canvas printing and framing",
+    description:
+      "Turn your photos and artwork into beautiful framed canvas prints.",
+    icon: "🖼️",
+  },
+  {
+    name: "Photos and passport printing",
+    description:
+      "Quick and professional photo printing, including passport photos.",
+    icon: "📸",
+  },
+  {
+    name: "Design",
+    description:
+      "Creative design services for branding, marketing materials, and more.",
+    icon: "🎨",
+  },
+];
+
 export default function ShopsPage() {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
+  const [isMapExpanded, setIsMapExpanded] = useState(false);
 
   const heroImages = ["/slides/1.jpg", "/slides/2.jpg", "/slides/3.jpg"];
 
-  const slideShowImages = [
-    "/slides/01.jpg",
-    "/slides/02.jpg",
-    "/slides/03.jpg",
-    "/slides/04.jpg",
-    "/slides/05.jpg",
-    "/slides/06.jpg",
+  const gridSlides = [
+    {
+      topImages: [
+        {
+          src: "/slides/01.jpg",
+          alt: "3D Signage Example 1",
+          title: "",
+        },
+        {
+          src: "/slides/02.jpg",
+          alt: "3D Signage Example 2",
+          title: "",
+        },
+        {
+          src: "/slides/03.jpg",
+          alt: "3D Signage Example 3",
+          title: "",
+        },
+      ],
+      bottomImages: [
+        {
+          src: "/slides/04.jpg",
+          alt: "Print Example 1",
+          title: "",
+        },
+        {
+          src: "/slides/05.jpg",
+          alt: "Print Example 2",
+          title: "",
+        },
+        {
+          src: "/slides/06.jpg",
+          alt: "Print Example 3",
+          title: "",
+        },
+      ],
+    },
+    {
+      topImages: [
+        {
+          src: "/slides/00.jpg",
+          alt: "Fabrication Example 1",
+          title: "Metal Fabrication",
+        },
+        {
+          src: "/slides/001.jpg",
+          alt: "Fabrication Example 2",
+          title: "Custom Structures",
+        },
+        {
+          src: "/slides/002.jpg",
+          alt: "Fabrication Example 3",
+          title: "Architectural Elements",
+        },
+      ],
+      bottomImages: [
+        {
+          src: "/slides/003.jpg",
+          alt: "Design Example 1",
+          title: "Brand Identity",
+        },
+        {
+          src: "/slides/004.jpg",
+          alt: "Design Example 2",
+          title: "Marketing Materials",
+        },
+        {
+          src: "/slides/005.jpg",
+          alt: "Design Example 3",
+          title: "Environmental Graphics",
+        },
+      ],
+    },
   ];
 
+  useEffect(() => {
+    if (selectedShop) {
+      setIsMapExpanded(true);
+    }
+  }, [selectedShop]);
+
   return (
-    <div className="bg-gray-100 dark:bg-black min-h-screen">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
       <HeroShops
         title="Our Shops"
         subtitle="Visit us at one of our convenient locations in Lusaka"
         images={heroImages}
       />
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16"
+        >
           <div className="space-y-8">
             {shops.map((shop) => (
               <motion.div
                 key={shop.id}
-                className={`bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-shadow duration-300 ${
+                className={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 ${
                   selectedShop?.id === shop.id
-                    ? "ring-2 ring-red-800"
-                    : "hover:shadow-lg"
+                    ? "ring-2 ring-red-800 dark:ring-red-500"
+                    : "hover:shadow-lg hover:scale-105"
                 }`}
                 onClick={() => setSelectedShop(shop)}
                 whileHover={{ scale: 1.02 }}
@@ -133,28 +239,34 @@ export default function ShopsPage() {
                     />
                   </div>
                   <div className="p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                       {shop.name}
                     </h2>
                     <div className="space-y-2">
                       <div className="flex items-start">
-                        <MapPin className="w-5 h-5 text-red-800 mr-2 mt-1 flex-shrink-0" />
-                        <p className="text-gray-600">{shop.address}</p>
+                        <MapPin className="w-5 h-5 text-red-800 dark:text-red-500 mr-2 mt-1 flex-shrink-0" />
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {shop.address}
+                        </p>
                       </div>
                       <div className="flex items-center">
-                        <Phone className="w-5 h-5 text-red-800 mr-2 flex-shrink-0" />
-                        <p className="text-gray-600">{shop.phone}</p>
+                        <Phone className="w-5 h-5 text-red-800 dark:text-red-500 mr-2 flex-shrink-0" />
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {shop.phone}
+                        </p>
                       </div>
                       <div className="flex items-start">
-                        <Clock className="w-5 h-5 text-red-800 mr-2 mt-1 flex-shrink-0" />
-                        <p className="text-gray-600">{shop.hours}</p>
+                        <Clock className="w-5 h-5 text-red-800 dark:text-red-500 mr-2 mt-1 flex-shrink-0" />
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {shop.hours}
+                        </p>
                       </div>
                     </div>
                     <a
                       href={shop.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center text-red-800 hover:text-red-700"
+                      className="mt-4 inline-flex items-center text-red-800 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400"
                     >
                       View on Google Maps
                       <ExternalLink className="ml-1 w-4 h-4" />
@@ -164,54 +276,80 @@ export default function ShopsPage() {
               </motion.div>
             ))}
           </div>
-          <div className="bg-white rounded-lg shadow-md overflow-hidden h-[600px]">
-            <Map shops={shops} selectedShop={selectedShop} />
+          <div className="relative">
+            <motion.div
+              className={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-300 ${
+                isMapExpanded ? "h-[600px]" : "h-80"
+              }`}
+            >
+              <Map shops={shops} selectedShop={selectedShop} />
+            </motion.div>
+            <button
+              onClick={() => setIsMapExpanded(!isMapExpanded)}
+              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white px-4 py-2 rounded-full shadow-md flex items-center space-x-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+            >
+              <span>{isMapExpanded ? "Collapse Map" : "Expand Map"}</span>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform duration-300 ${
+                  isMapExpanded ? "rotate-180" : ""
+                }`}
+              />
+            </button>
           </div>
-        </div>
-        <div className="mt-16 mb-16">
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Explore Our Work
+          </h2>
+          <GridSlideshow slides={gridSlides} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-16 mb-16"
+        >
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             What We Do
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "Printing, photocopying, scanning",
-              "Fabric printing",
-              "Engraving",
-              "Canvas printing and framing",
-              "Photos and passport printing",
-              "Design",
-            ].map((service, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-center">
-                  <div className="bg-red-800 rounded-full p-3 mr-4">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-lg font-semibold text-gray-800">
-                    {service}
-                  </p>
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center mb-4">
+                  <div className="text-4xl mr-4">{service.icon}</div>
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                    {service.name}
+                  </h3>
                 </div>
-              </div>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {service.description}
+                </p>
+              </motion.div>
             ))}
           </div>
-        </div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-          Explore Our Work
-        </h2>
-        <SlideShow images={slideShowImages} />
-        <Products products={products} itemsPerPage={6} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Our Products
+          </h2>
+          <Products products={products} itemsPerPage={12} />
+        </motion.div>
       </div>
     </div>
   );

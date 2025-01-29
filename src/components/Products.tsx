@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -65,7 +64,7 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
             key={product.id}
             className={`relative overflow-hidden cursor-pointer group
               ${getGridItemStyle(index)}
-              bg-gray-100 rounded-lg`}
+              bg-gray-100 dark:bg-gray-800 rounded-lg`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => openLightbox(indexOfFirstItem + index)}
@@ -101,7 +100,7 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
         <button
           onClick={() => paginate(Math.max(1, currentPage - 1))}
           disabled={currentPage === 1}
-          className="px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:hover:bg-gray-100 transition-colors text-sm"
+          className="px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:hover:bg-gray-100 dark:disabled:hover:bg-gray-800 transition-colors text-sm"
         >
           Previous
         </button>
@@ -113,7 +112,7 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
               ${
                 currentPage === i + 1
                   ? "bg-red-800 text-white shadow-md scale-105"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             {i + 1}
@@ -122,7 +121,7 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
         <button
           onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage === totalPages}
-          className="px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:hover:bg-gray-100 transition-colors text-sm"
+          className="px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:hover:bg-gray-100 dark:disabled:hover:bg-gray-800 transition-colors text-sm"
         >
           Next
         </button>
