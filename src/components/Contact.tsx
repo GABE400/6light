@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import {
   Mail,
@@ -44,6 +44,41 @@ const locations: Location[] = [
     address: "Pinnacle mall",
   },
 ];
+
+const branches = [
+  { id: "main", name: "Main Branch" },
+  { id: "eastpark", name: "East Park Branch" },
+  { id: "pinnacle", name: "Pinnacle Branch" },
+];
+
+const mainBranchServices = [
+  "3D Signage",
+  "Large Format Printing",
+  "Vehicle Wraps",
+  "Custom Fabrication",
+  "Laser Cutting",
+  "Others",
+];
+
+const shopBranchServices = [
+  "Printing, photocopying, scanning",
+  "Fabric printing",
+  "Engraving",
+  "Canvas printing and framing",
+  "Photos and passport printing",
+  "Design",
+  "Others",
+];
+
+const branchEmails = {
+  main:
+    process.env.NEXT_PUBLIC_MAIN_BRANCH_EMAIL || "marketing@sixlightmedia.com",
+  eastpark:
+    process.env.NEXT_PUBLIC_EASTPARK_BRANCH_EMAIL || "shop@sixlightmedia.com",
+  pinnacle:
+    process.env.NEXT_PUBLIC_PINNACLE_BRANCH_EMAIL ||
+    "pinnacle@sixlightmedia.com",
+};
 
 interface CopyableInfoProps {
   icon: LucideIcon;
@@ -95,6 +130,7 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
+  branch: string;
   service: string;
   message: string;
 }
@@ -105,19 +141,30 @@ const Contact: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
+    watch,
   } = useForm<FormData>();
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
 
+  const watchBranch = watch("branch", "main");
+
   const onSubmit = async (data: FormData) => {
     try {
+      const branchEmail =
+        branchEmails[data.branch as keyof typeof branchEmails];
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          subject: `New Quotation Request for ${
+            branches.find((b) => b.id === data.branch)?.name
+          }`,
+          recipient: branchEmail,
+        }),
       });
 
       if (response.ok) {
@@ -202,7 +249,7 @@ const Contact: React.FC = () => {
                   type="text"
                   id="name"
                   {...register("name", { required: "Name is required" })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 bg-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md bg-gray-200 border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
                 {errors.name && (
                   <p className="mt-1 text-sm text-red-600">
@@ -227,7 +274,7 @@ const Contact: React.FC = () => {
                       message: "Invalid email address",
                     },
                   })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 bg-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md bg-gray-200 border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
                 {errors.email && (
                   <p className="mt-1 text-sm text-red-600">
@@ -246,8 +293,32 @@ const Contact: React.FC = () => {
                   type="tel"
                   id="phone"
                   {...register("phone")}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 bg-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md bg-gray-200 border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="branch"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Branch
+                </label>
+                <select
+                  id="branch"
+                  {...register("branch", { required: "Branch is required" })}
+                  className="mt-1 block w-full rounded-md bg-gray-200 border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                >
+                  {branches.map((branch) => (
+                    <option key={branch.id} value={branch.id}>
+                      {branch.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.branch && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.branch.message}
+                  </p>
+                )}
               </div>
               <div>
                 <label
@@ -262,13 +333,17 @@ const Contact: React.FC = () => {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 >
                   <option value="">Select a service</option>
-                  <option value="3D Signage">3D Signage</option>
-                  <option value="Large Format Printing">
-                    Large Format Printing
-                  </option>
-                  <option value="Vehicle Wraps">Vehicle Wraps</option>
-                  <option value="Custom Fabrication">Custom Fabrication</option>
-                  <option value="Other">Other</option>
+                  {watchBranch === "main"
+                    ? mainBranchServices.map((service) => (
+                        <option key={service} value={service}>
+                          {service}
+                        </option>
+                      ))
+                    : shopBranchServices.map((service) => (
+                        <option key={service} value={service}>
+                          {service}
+                        </option>
+                      ))}
                 </select>
                 {errors.service && (
                   <p className="mt-1 text-sm text-red-600">
@@ -287,7 +362,7 @@ const Contact: React.FC = () => {
                   id="message"
                   rows={4}
                   {...register("message", { required: "Message is required" })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 bg-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md bg-gray-200 border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 ></textarea>
                 {errors.message && (
                   <p className="mt-1 text-sm text-red-600">
