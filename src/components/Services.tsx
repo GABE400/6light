@@ -156,7 +156,7 @@ const ServiceCard = ({
     className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
   >
     <div className="p-6">
-      <div className="text-primary dark:text-primary-dark mb-4">
+      <div className="text-primary dark:text-primary-dark text-red-800 dark:text-yellow-400 mb-4">
         {service.icon}
       </div>
       <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
