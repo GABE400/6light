@@ -716,6 +716,54 @@ const portfolioItems = [
     image: "/3D signage/55.jpg",
     title: "Corporate 3D Signage",
   },
+  {
+    id: 122,
+    category: "branding",
+    image: "/vehicle branding/13.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 123,
+    category: "branding",
+    image: "/vehicle branding/14.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 124,
+    category: "branding",
+    image: "/vehicle branding/15.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 125,
+    category: "branding",
+    image: "/vehicle branding/16.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 126,
+    category: "branding",
+    image: "/vehicle branding/17.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 127,
+    category: "branding",
+    image: "/vehicle branding/18.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 128,
+    category: "branding",
+    image: "/vehicle branding/19.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 129,
+    category: "branding",
+    image: "/vehicle branding/20.jpg",
+    title: "Vehicle Wrap Design",
+  },
 ];
 
 const categories = [
