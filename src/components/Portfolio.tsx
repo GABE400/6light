@@ -467,7 +467,7 @@ const portfolioItems = [
   {
     id: 77,
     category: "signage",
-    image: "/3D signage/14.JPG",
+    image: "/3D signage/14.jpg",
     title: "Corporate 3D Signage",
   },
   {
