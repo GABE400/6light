@@ -22,13 +22,13 @@ export async function POST(req: Request) {
     let recipient;
     switch (branch) {
       case "main":
-        recipient = process.env.MAIN_BRANCH_EMAIL;
+        recipient = process.env.NEXT_PUBLIC_MAIN_BRANCH_EMAIL;
         break;
       case "eastpark":
-        recipient = process.env.EASTPARK_BRANCH_EMAIL;
+        recipient = process.env.NEXT_PUBLIC_EASTPARK_BRANCH_EMAIL;
         break;
       case "pinnacle":
-        recipient = process.env.PINNACLE_BRANCH_EMAIL;
+        recipient = process.env.NEXT_PUBLIC_PINNACLE_BRANCH_EMAIL;
         break;
       default:
         recipient = defaultRecipient;
