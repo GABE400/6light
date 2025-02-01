@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 
   // Define a default recipient email
   const defaultRecipient =
-    process.env.DEFAULT_RECIPIENT_EMAIL || "default@example.com";
+    process.env.DEFAULT_RECIPIENT_EMAIL || "marketing@sixlightmedia.com";
 
   // Create a Nodemailer transporter for Gmail
   const transporter = nodemailer.createTransport({
