@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
-  const { name, email, phone, branch, service, message, branchEmail } =
-    await req.json();
+  const { name, email, phone, branch, service, message } = await req.json();
+
+  // Define a default recipient email
+  const defaultRecipient =
+    process.env.DEFAULT_RECIPIENT_EMAIL || "default@example.com";
 
   // Create a Nodemailer transporter for Gmail
   const transporter = nodemailer.createTransport({
@@ -15,10 +18,31 @@ export async function POST(req: Request) {
   });
 
   try {
+    // Determine the recipient based on the branch
+    let recipient;
+    switch (branch) {
+      case "main":
+        recipient = process.env.MAIN_BRANCH_EMAIL;
+        break;
+      case "eastpark":
+        recipient = process.env.EASTPARK_BRANCH_EMAIL;
+        break;
+      case "pinnacle":
+        recipient = process.env.PINNACLE_BRANCH_EMAIL;
+        break;
+      default:
+        recipient = defaultRecipient;
+    }
+
+    // If no specific recipient is found, use the default
+    if (!recipient) {
+      recipient = defaultRecipient;
+    }
+
     // Send email
     await transporter.sendMail({
       from: `"6 Light Media Website" <${process.env.GMAIL_USER}>`,
-      to: branchEmail,
+      to: recipient,
       subject: `New Quotation Request for ${branch} Branch`,
       text: `
         Name: ${name}
