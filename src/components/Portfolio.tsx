@@ -764,6 +764,54 @@ const portfolioItems = [
     image: "/vehicle branding/20.jpg",
     title: "Vehicle Wrap Design",
   },
+  {
+    id: 130,
+    category: "branding",
+    image: "/vehicle branding/21.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 131,
+    category: "branding",
+    image: "/vehicle branding/22.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 132,
+    category: "branding",
+    image: "/vehicle branding/23.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 133,
+    category: "branding",
+    image: "/vehicle branding/24.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 134,
+    category: "branding",
+    image: "/vehicle branding/25.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 135,
+    category: "branding",
+    image: "/vehicle branding/26.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 136,
+    category: "branding",
+    image: "/vehicle branding/27.jpg",
+    title: "Vehicle Wrap Design",
+  },
+  {
+    id: 137,
+    category: "branding",
+    image: "/vehicle branding/28.jpg",
+    title: "Vehicle Wrap Design",
+  },
 ];
 
 const categories = [
