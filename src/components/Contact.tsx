@@ -188,7 +188,7 @@ const Contact: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-4xl font-bold text-center text-black dark:text-gray-200 mb-12"
         >
-          Contact Us
+          Reach out, let&apos;s get the conversation started
         </motion.h2>
         <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
           Click on the copy icon next to any email or phone number to copy it to

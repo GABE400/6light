@@ -28,7 +28,7 @@ const Footer = () => {
               />
 
               <SocialIcon
-                href="https://instagram.com"
+                href="https://www.instagram.com/sixlightmedia/"
                 icon={<Instagram size={20} />}
                 label="Instagram"
               />

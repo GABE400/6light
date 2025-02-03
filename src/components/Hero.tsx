@@ -34,7 +34,7 @@ const Hero = () => {
           className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
         >
           <Link
-            href="/services"
+            href="#services"
             className="bg-primary hover:bg-primary-dark bg-red-800 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105"
           >
             Explore Our Services

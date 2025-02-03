@@ -6,7 +6,7 @@ export default function ContactPage() {
     <>
       <HeroSection
         title="Contact us"
-        subtitle="Get in touch with 6 Light Media"
+        subtitle="Every client is unique, and so are their needs. Let's tailor a solution just for you! Send us an email  for a custom quote."
         backgroundImage="/shops/contacthero.jpg"
       />
       <Contact />
