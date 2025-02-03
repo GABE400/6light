@@ -46,7 +46,7 @@ const locations: Location[] = [
 ];
 
 const branches = [
-  { id: "main", name: "Main Branch" },
+  { id: "main", name: "Head Office" },
   { id: "eastpark", name: "East Park Branch" },
   { id: "pinnacle", name: "Pinnacle Branch" },
 ];
