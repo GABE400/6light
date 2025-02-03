@@ -9,8 +9,8 @@ const images = [
   "/img/1.jpg",
   "/img/2.jpg",
   "/img/3.jpg",
-  "/img/4.png",
-  "/img/5.png",
+  "/img/4.jpg",
+  "/img/5.jpg",
   "/img/6.JPG",
   "/img/7.jpg",
   "/img/8.JPG",
@@ -24,7 +24,16 @@ const images = [
   "/img/17.jpg",
   "/img/18.jpg",
   "/img/19.jpg",
-  "/img/20.JPG",
+  "/img/20.jpg",
+  "/img/21.jpg",
+  "/img/22.jpg",
+  "/img/23.jpg",
+  "/img/24.jpg",
+  "/img/25.jpg",
+  "/img/26.jpg",
+  "/img/27.jpg",
+  "/img/28.jpg",
+  "/img/29.jpg",
 ];
 
 const AboutUs = () => {
