@@ -358,9 +358,9 @@ const portfolioItems = [
   },
   {
     id: 59,
-    category: "3d",
-    image: "/super sized 3D/8.jpg",
-    title: "Super Sized 3D Logo",
+    category: "branding",
+    image: "/vehicle branding/28.jpg",
+    title: "Vehicle Wrap Design",
   },
   {
     id: 60,
@@ -804,12 +804,6 @@ const portfolioItems = [
     id: 136,
     category: "branding",
     image: "/vehicle branding/27.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 137,
-    category: "branding",
-    image: "/vehicle branding/28.jpg",
     title: "Vehicle Wrap Design",
   },
 ];
