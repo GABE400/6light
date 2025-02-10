@@ -11,14 +11,14 @@ const Hero = () => {
     >
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
       <div className="relative z-20 text-center text-white px-4 sm:px-6 lg:px-8">
-        <motion.h1
+        {/* <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
         >
           6 Light Media
-        </motion.h1>
+        </motion.h1> */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

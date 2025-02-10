@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { motion } from "framer-motion";
@@ -16,11 +15,9 @@ import {
   Camera,
   Shirt,
   ImageIcon,
-  FileImage,
-  Stamp,
-  PenTool,
 } from "lucide-react";
 import Link from "next/link";
+import type React from "react"; // Import React
 
 const mainServices = [
   {
@@ -101,36 +98,42 @@ const shopServices = [
     title: "Printing, Photocopying, Scanning",
     description:
       "Quick and efficient printing, photocopying, and scanning services for all your document needs.",
+    link: "/services/printing-photocopying-scanning",
   },
   {
     icon: <Shirt size={48} />,
     title: "Fabric Printing",
     description:
       "High-quality fabric printing for custom apparel, home decor, and more.",
+    link: "/services/fabric-printing",
   },
   {
-    icon: <PenTool size={48} />,
+    icon: <Tool size={48} />,
     title: "Engraving",
     description:
       "Precision engraving services for a variety of materials, perfect for personalized gifts and professional items.",
+    link: "/services/engraving",
   },
   {
     icon: <ImageIcon size={48} />,
     title: "Canvas Printing and Framing",
     description:
       "Turn your photos and artwork into beautiful canvas prints, complete with professional framing.",
+    link: "/services/canvas-printing-framing",
   },
   {
     icon: <Camera size={48} />,
     title: "Photos and Passport Printing",
     description:
       "Quick and professional photo printing services, including passport photos that meet official requirements.",
+    link: "/services/photo-passport-printing",
   },
   {
     icon: <Palette size={48} />,
     title: "Design",
     description:
       "Professional design services to help bring your ideas to life, from logos to marketing materials.",
+    link: "/services/design",
   },
 ];
 
@@ -138,16 +141,10 @@ interface Service {
   icon: React.ReactNode;
   title: string;
   description: string;
-  link?: string;
+  link: string;
 }
 
-const ServiceCard = ({
-  service,
-  isShopService = false,
-}: {
-  service: Service;
-  isShopService?: boolean;
-}) => (
+const ServiceCard = ({ service }: { service: Service }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -155,7 +152,7 @@ const ServiceCard = ({
     viewport={{ once: true }}
     className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
   >
-    <div className="p-6">
+    <Link href={service.link} className="block p-6">
       <div className="text-primary dark:text-primary-dark text-red-800 dark:text-yellow-400 mb-4">
         {service.icon}
       </div>
@@ -165,15 +162,10 @@ const ServiceCard = ({
       <p className="text-gray-600 dark:text-gray-300 mb-4">
         {service.description}
       </p>
-      {/* {!isShopService && (
-        <Link
-          href={service.link}
-          className="text-primary dark:text-primary-dark hover:underline font-medium"
-        >
-          Learn More
-        </Link>
-      )} */}
-    </div>
+      <span className="text-primary dark:text-primary-dark hover:underline font-medium">
+        Learn More
+      </span>
+    </Link>
   </motion.div>
 );
 
@@ -203,7 +195,7 @@ const Services = () => {
           6 Light Media Services
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {mainServices.map((service, index) => (
+          {mainServices.map((service) => (
             <ServiceCard key={service.title} service={service} />
           ))}
         </div>
@@ -212,12 +204,8 @@ const Services = () => {
           Shop Services
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {shopServices.map((service, index) => (
-            <ServiceCard
-              key={service.title}
-              service={service}
-              isShopService={true}
-            />
+          {shopServices.map((service) => (
+            <ServiceCard key={service.title} service={service} />
           ))}
         </div>
 
