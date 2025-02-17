@@ -74,6 +74,8 @@ const products = [
   { id: 24, image: "/shops/24.jpg" },
   { id: 25, image: "/shops/25.jpg" },
   { id: 26, image: "/shops/26.jpg" },
+  { id: 27, image: "/shops/27.jpg" },
+  { id: 28, image: "/shops/28.jpg" },
 ];
 
 const services = [

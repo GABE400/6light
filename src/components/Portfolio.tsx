@@ -806,6 +806,30 @@ const portfolioItems = [
     image: "/vehicle branding/27.jpg",
     title: "Vehicle Wrap Design",
   },
+  {
+    id: 137,
+    category: "fabrication",
+    image: "/fabrication/10.jpg",
+    title: "Custom Metal Fabrication",
+  },
+  {
+    id: 138,
+    category: "fabrication",
+    image: "/fabrication/11.jpg",
+    title: "Custom Metal Fabrication",
+  },
+  {
+    id: 139,
+    category: "fabrication",
+    image: "/fabrication/12.jpg",
+    title: "Custom Metal Fabrication",
+  },
+  {
+    id: 140,
+    category: "fabrication",
+    image: "/fabrication/13.jpg",
+    title: "Custom Metal Fabrication",
+  },
 ];
 
 const categories = [
