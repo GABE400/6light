@@ -120,13 +120,12 @@ export default function ShopsPage() {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
 
-  const slides = [
+  const heroBackgroundImage = "/slides/2.jpg";
+  const heroSlides = [
     {
-      backgroundImage: "/slides/2.jpg",
       images: ["/slides/AA.jpg", "/slides/BB.jpg", "/slides/CC.jpg"],
     },
     {
-      backgroundImage: "/slides/3.jpg",
       images: ["/slides/DD.jpg", "/slides/EE.jpg", "/slides/FF.jpg"],
     },
     // Add more slides as needed
@@ -215,15 +214,11 @@ export default function ShopsPage() {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
-      {/* <HeroShops
-        title="Our Shops"
-        subtitle="Visit us at one of our convenient locations in Lusaka"
-        images={heroImages}
-      /> */}
       <HeroShops
         title="Our Shops"
-        subtitle="Explore our locations"
-        slides={slides}
+        subtitle="Visit us at one of our convenient locations in Lusaka"
+        backgroundImage={heroBackgroundImage}
+        slides={heroSlides}
       />
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <motion.div
