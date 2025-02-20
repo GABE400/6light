@@ -21,7 +21,7 @@ const images = [
   "/img/13.jpg",
   "/img/14.jpg",
   "/img/15.jpg",
-  "/img/16.png",
+  // "/img/16.png",
   "/img/17.jpg",
   "/img/18.jpg",
   "/img/19.jpg",

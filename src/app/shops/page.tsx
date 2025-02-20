@@ -120,7 +120,7 @@ export default function ShopsPage() {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
 
-  const heroBackgroundImage = "/slides/2.jpg";
+  const heroBackgroundImage = "/img/bg.jpg";
   const heroSlides = [
     {
       images: ["/slides/AA.jpg", "/slides/BB.jpg", "/slides/CC.jpg"],
