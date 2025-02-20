@@ -806,6 +806,12 @@ const portfolioItems = [
     image: "/3D signage/56.jpg",
     title: "Corporate 3D Signage",
   },
+  {
+    id: 134,
+    category: "fabrication",
+    image: "/fabrication/14.jpg",
+    title: "Custom Metal Fabrication",
+  },
 ];
 
 const categories = [
