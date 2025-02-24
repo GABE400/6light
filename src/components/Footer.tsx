@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <SocialIcon
-                href="https://www.facebook.com/sixlightmedia/reviews"
+                href="https://www.facebook.com/share/r/1G5hHcr4YR/?mibextid=wwXIfr"
                 icon={<Facebook size={20} />}
                 label="Facebook"
               />

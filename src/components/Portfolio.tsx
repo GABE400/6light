@@ -909,7 +909,7 @@ const Portfolio = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                  className="bg-white dark:bg-black rounded-lg overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
                   onClick={() => openLightbox(index)}
                 >
                   <div className="relative w-full h-48">
@@ -926,7 +926,9 @@ const Portfolio = () => {
                   </div>
                   <div className="p-4">
                     <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                    <p className="text-gray-600 capitalize">{item.category}</p>
+                    <p className="text-gray-600 dark:text-red-600 capitalize">
+                      {item.category}
+                    </p>
                   </div>
                 </motion.div>
               ))}
