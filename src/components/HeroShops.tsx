@@ -5,35 +5,42 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { getHeroShops } from "@/sanity/lib/queries";
+import type { HeroShopsData } from "@/sanity/lib/queries";
 
-interface Slide {
-  images: string[];
-}
-
-interface HeroShopsProps {
-  title: string;
-  subtitle: string;
-  backgroundImage: string;
-  slides: Slide[];
-}
-
-const HeroShops: React.FC<HeroShopsProps> = ({
-  title,
-  subtitle,
-  backgroundImage,
-  slides,
-}) => {
+const HeroShops: React.FC = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [heroData, setHeroData] = useState<HeroShopsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getHeroShops();
+        setHeroData(data);
+      } catch (error) {
+        console.error("Error fetching hero shops data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (!heroData?.slides.length) return;
+
     const slideInterval = setInterval(() => {
-      setCurrentSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
+      setCurrentSlideIndex(
+        (prevIndex) => (prevIndex + 1) % heroData.slides.length
+      );
     }, 10000); // Change slide every 10 seconds
 
     return () => {
       clearInterval(slideInterval);
     };
-  }, [slides.length]);
+  }, [heroData?.slides.length]);
 
   const contentVariants = {
     enter: { opacity: 0, x: 300 },
@@ -41,11 +48,15 @@ const HeroShops: React.FC<HeroShopsProps> = ({
     exit: { opacity: 0, x: -300 },
   };
 
+  if (isLoading || !heroData) {
+    return <div>Loading...</div>; // Consider adding a proper loading component
+  }
+
   return (
     <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={backgroundImage || "/placeholder.svg"}
+          src={heroData.backgroundImage || "/placeholder.svg"}
           alt="Shop Hero Background"
           layout="fill"
           objectFit="cover"
@@ -57,10 +68,10 @@ const HeroShops: React.FC<HeroShopsProps> = ({
 
       <div className="relative z-10 h-full flex flex-col items-center justify-start pt-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center text-white">
-          {title}
+          {heroData.title}
         </h1>
         <p className="text-lg md:text-xl text-center max-w-2xl px-4 mb-4 text-white">
-          {subtitle}
+          {heroData.subtitle}
         </p>
 
         <AnimatePresence mode="wait">
@@ -87,7 +98,7 @@ const HeroShops: React.FC<HeroShopsProps> = ({
                   >
                     <Image
                       src={
-                        slides[currentSlideIndex].images[index] ||
+                        heroData.slides[currentSlideIndex]?.images[index] ||
                         "/placeholder.svg"
                       }
                       alt={`Shop image ${index + 1}`}
@@ -104,7 +115,7 @@ const HeroShops: React.FC<HeroShopsProps> = ({
       </div>
 
       <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-20">
-        {slides.map((_, index) => (
+        {heroData.slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlideIndex(index)}

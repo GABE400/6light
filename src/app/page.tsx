@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { getMainBackground } from "@/sanity/lib/queries";
 import Hero from "@/components/Hero";
 import OurClients from "@/components/OurClients";
 import Portfolio from "@/components/Portfolio";
@@ -13,7 +14,23 @@ import AboutUs from "@/components/AboutUs";
 import ChatBot from "@/components/ChatBot";
 
 export default function Home() {
+  const [backgroundImage, setBackgroundImage] = useState<string>("/Moon.svg"); // Initialize with fallback
   const [showScrollButton, setShowScrollButton] = useState(false);
+
+  useEffect(() => {
+    const fetchBackground = async () => {
+      try {
+        const data = await getMainBackground();
+        if (data?.backgroundImage) {
+          setBackgroundImage(data.backgroundImage);
+        }
+      } catch (error) {
+        console.error("Error fetching background:", error);
+        // Keep fallback image in case of error
+      }
+    };
+    fetchBackground();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,9 +52,9 @@ export default function Home() {
       <main className="relative min-h-screen">
         <div className="fixed inset-0 z-0">
           <Image
-            src="/Moon_REV.png"
+            src={backgroundImage}
             alt="Background image"
-            layout="fill"
+            fill
             objectFit="cover"
             quality={100}
             className="object-cover"

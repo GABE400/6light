@@ -4,40 +4,29 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Slider from "react-slick";
 import "../styles/slick.css";
-
-const images = [
-  "/img/1.jpg",
-  "/img/2.jpg",
-  "/img/3.jpg",
-  "/img/4.jpg",
-  "/img/5.jpg",
-  "/img/6.JPG",
-  "/img/7.JPG",
-  "/img/8.JPG",
-  "/img/9.jpg",
-  "/img/10.jpg",
-  "/img/11.jpg",
-  "/img/12.jpg",
-  "/img/13.jpg",
-  "/img/14.jpg",
-  "/img/15.jpg",
-  // "/img/16.png",
-  "/img/17.jpg",
-  "/img/18.jpg",
-  "/img/19.jpg",
-  // "/img/20.jpg",
-  "/img/21.jpg",
-  "/img/22.jpg",
-  "/img/23.jpg",
-  "/img/24.jpg",
-  "/img/25.jpg",
-  "/img/26.jpg",
-  "/img/27.jpg",
-  "/img/28.jpg",
-  "/img/29.jpg",
-];
+import { useEffect, useState } from "react";
+import { getAboutUs } from "@/sanity/lib/queries";
+import type { AboutUsData } from "@/sanity/lib/queries";
 
 const AboutUs = () => {
+  const [aboutData, setAboutData] = useState<AboutUsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAboutUs();
+        setAboutData(data);
+      } catch (error) {
+        console.error("Error fetching about us data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -47,6 +36,10 @@ const AboutUs = () => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Consider adding a proper loading component
+  }
 
   return (
     <section id="about" className="py-20 bg-white dark:bg-black">
@@ -58,10 +51,10 @@ const AboutUs = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            About 6 Light Media
+            {aboutData?.title || "About 6 Light Media"}
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Learn about us
+            {aboutData?.subtitle || "Learn about us"}
           </p>
         </motion.div>
 
@@ -73,12 +66,12 @@ const AboutUs = () => {
             className="w-full h-[400px] relative"
           >
             <Slider {...settings}>
-              {images.map((src, index) => (
+              {(aboutData?.images || []).map((src, index) => (
                 <div key={index} className="w-full h-[400px] relative">
                   <Image
                     src={src || "/placeholder.svg"}
                     alt={`6 Light Media team ${index + 1}`}
-                    layout="fill"
+                    fill
                     objectFit="cover"
                     className="rounded-lg"
                   />
@@ -97,23 +90,16 @@ const AboutUs = () => {
               Our Story
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              We are a Creative Driven, Brand Focused and Design Led Large
-              Format Printing and Signage company with a pioneering history in
-              large format printing, 3D signage and laser cutting.
+              {aboutData?.story}
             </p>
             <p className="text-gray-600 dark:text-gray-300">
-              In a market where consumers are talking to brands more than ever,
-              attention spans shorter and the market more fragmented – WE WORK
-              TO OFFER OUT OF THE BOX, POWERFULLY CREATIVE SIGNAGE IDEAS that
-              demand the attention and interest of YOUR CLIENTS.
+              {aboutData?.marketDescription}
             </p>
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
               How We Work
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              Our mission is always to be the PIONEER. We have a long
-              established reputation for providing Cutting Edge products that
-              are high quality and provided to you in a timely manner.
+              {aboutData?.workDescription}
             </p>
           </motion.div>
         </div>
@@ -124,33 +110,16 @@ const AboutUs = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
-          <div className="text-center">
-            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              Innovation
-            </h4>
-            <p className="text-gray-600 dark:text-gray-300">
-              We constantly invest in the latest technology to provide
-              cutting-edge solutions for our clients.
-            </p>
-          </div>
-          <div className="text-center">
-            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              Quality
-            </h4>
-            <p className="text-gray-600 dark:text-gray-300">
-              We are committed to delivering the highest quality products that
-              exceed industry standards.
-            </p>
-          </div>
-          <div className="text-center">
-            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              Customer Focus
-            </h4>
-            <p className="text-gray-600 dark:text-gray-300">
-              Our clients&apos; success is our success. We work closely with
-              each client to understand and meet their unique needs.
-            </p>
-          </div>
+          {(aboutData?.features || []).map((feature, index) => (
+            <div key={index} className="text-center">
+              <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                {feature.title}
+              </h4>
+              <p className="text-gray-600 dark:text-gray-300">
+                {feature.description}
+              </p>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

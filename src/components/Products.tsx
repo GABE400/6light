@@ -1,30 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-
-interface Product {
-  id: number;
-  image: string;
-}
+import { getProducts, type Product } from "@/sanity/lib/queries";
 
 interface ProductsProps {
-  products: Product[];
   itemsPerPage: number;
 }
 
-const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
+const Products: React.FC<ProductsProps> = ({ itemsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -56,12 +67,20 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-2 py-8">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
         {currentItems.map((product, index) => (
           <motion.div
-            key={product.id}
+            key={product._id}
             className={`relative overflow-hidden cursor-pointer group
               ${getGridItemStyle(index)}
               bg-gray-100 dark:bg-gray-800 rounded-lg`}
@@ -72,31 +91,19 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
             <div className="absolute inset-0 w-full h-full">
               <Image
                 src={product.image || "/placeholder.svg"}
-                alt={`Product ${product.id}`}
+                alt={product.title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16.67vw"
                 priority={index < 4}
               />
             </div>
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-all duration-300
-              flex flex-col justify-end p-3"
-            >
-              <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-white text-base font-semibold">
-                  View Image
-                </h3>
-                <p className="text-white/80 text-xs mt-1">Click to expand</p>
-              </div>
-            </div>
           </motion.div>
         ))}
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center mt-8 gap-2">
+      <div className="flex justify-center gap-4 mt-8">
         <button
           onClick={() => paginate(Math.max(1, currentPage - 1))}
           disabled={currentPage === 1}
@@ -104,20 +111,6 @@ const Products: React.FC<ProductsProps> = ({ products, itemsPerPage }) => {
         >
           Previous
         </button>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => paginate(i + 1)}
-            className={`w-8 h-8 rounded-lg transition-all duration-200 text-sm
-              ${
-                currentPage === i + 1
-                  ? "bg-red-800 text-white shadow-md scale-105"
-                  : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-              }`}
-          >
-            {i + 1}
-          </button>
-        ))}
         <button
           onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage === totalPages}

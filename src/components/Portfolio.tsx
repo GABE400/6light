@@ -2,845 +2,44 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const portfolioItems = [
-  {
-    id: 1,
-    category: "signage",
-    image: "/3D signage/1.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 2,
-    category: "signage",
-    image: "/3D signage/2.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 3,
-    category: "signage",
-    image: "/3D signage/3.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 4,
-    category: "signage",
-    image: "/3D signage/4.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 5,
-    category: "signage",
-    image: "/3D signage/5.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 6,
-    category: "signage",
-    image: "/3D signage/6.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 7,
-    category: "signage",
-    image: "/3D signage/7.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 8,
-    category: "signage",
-    image: "/3D signage/8.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 9,
-    category: "signage",
-    image: "/3D signage/9.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 10,
-    category: "signage",
-    image: "/3D signage/10.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 11,
-    category: "signage",
-    image: "/3D signage/11.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 12,
-    category: "signage",
-    image: "/3D signage/12.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 13,
-    category: "acrylics",
-    image: "/acrylics laser cutting/1.jpg",
-    title: "Acrylic Display Stand",
-  },
-  {
-    id: 14,
-    category: "acrylics",
-    image: "/acrylics laser cutting/2.jpg",
-    title: "Acrylic Display Stand",
-  },
-  {
-    id: 15,
-    category: "acrylics",
-    image: "/acrylics laser cutting/3.jpg",
-    title: "Acrylic Display Stand",
-  },
-  {
-    id: 16,
-    category: "acrylics",
-    image: "/acrylics laser cutting/4.jpg",
-    title: "Acrylic Display Stand",
-  },
-  {
-    id: 17,
-    category: "acrylics",
-    image: "/acrylics laser cutting/5.jpg",
-    title: "Acrylic Display Stand",
-  },
-  {
-    id: 18,
-    category: "acrylics",
-    image: "/acrylics laser cutting/6.jpg",
-    title: "Acrylic Display Stand",
-  },
-  {
-    id: 19,
-    category: "cnc",
-    image: "/cnc routing/1.jpg",
-    title: "CNC Routed Logo",
-  },
-  {
-    id: 20,
-    category: "cnc",
-    image: "/cnc routing/2.jpg",
-    title: "CNC Routed Logo",
-  },
-  {
-    id: 21,
-    category: "cnc",
-    image: "/cnc routing/3.jpg",
-    title: "CNC Routed Logo",
-  },
-  {
-    id: 22,
-    category: "cnc",
-    image: "/cnc routing/4.jpg",
-    title: "CNC Routed Logo",
-  },
-  {
-    id: 23,
-    category: "cnc",
-    image: "/cnc routing/5.jpg",
-    title: "CNC Routed Logo",
-  },
-  {
-    id: 24,
-    category: "cnc",
-    image: "/cnc routing/6.jpg",
-    title: "CNC Routed Logo",
-  },
-  {
-    id: 25,
-    category: "fabrication",
-    image: "/fabrication/1.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 26,
-    category: "fabrication",
-    image: "/fabrication/2.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 27,
-    category: "fabrication",
-    image: "/fabrication/3.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 28,
-    category: "fabrication",
-    image: "/fabrication/4.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 29,
-    category: "fabrication",
-    image: "/fabrication/5.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 30,
-    category: "fabrication",
-    image: "/fabrication/6.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 31,
-    category: "fabrication",
-    image: "/fabrication/7.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 32,
-    category: "fabrication",
-    image: "/fabrication/8.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 33,
-    category: "fabrication",
-    image: "/fabrication/9.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 34,
-    category: "printing",
-    image: "/large format printing/1.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 35,
-    category: "printing",
-    image: "/large format printing/2.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 36,
-    category: "printing",
-    image: "/large format printing/3.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 37,
-    category: "printing",
-    image: "/large format printing/4.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 38,
-    category: "printing",
-    image: "/large format printing/5.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 39,
-    category: "printing",
-    image: "/large format printing/6.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 40,
-    category: "printing",
-    image: "/large format printing/7.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 41,
-    category: "printing",
-    image: "/large format printing/8.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 42,
-    category: "printing",
-    image: "/large format printing/9.jpg",
-    title: "Large Format Banner",
-  },
-  {
-    id: 43,
-    category: "cutting",
-    image: "/steel laser cutting/1.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 44,
-    category: "cutting",
-    image: "/steel laser cutting/2.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 45,
-    category: "cutting",
-    image: "/steel laser cutting/3.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 46,
-    category: "cutting",
-    image: "/steel laser cutting/4.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 47,
-    category: "cutting",
-    image: "/steel laser cutting/5.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 48,
-    category: "cutting",
-    image: "/steel laser cutting/6.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 49,
-    category: "cutting",
-    image: "/steel laser cutting/7.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 50,
-    category: "cutting",
-    image: "/steel laser cutting/8.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 51,
-    category: "cutting",
-    image: "/steel laser cutting/9.jpg",
-    title: "Laser Cut Signage",
-  },
-  {
-    id: 52,
-    category: "3d",
-    image: "/super sized 3D/1.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 53,
-    category: "3d",
-    image: "/super sized 3D/2.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 54,
-    category: "3d",
-    image: "/super sized 3D/3.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 55,
-    category: "3d",
-    image: "/super sized 3D/4.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 56,
-    category: "3d",
-    image: "/super sized 3D/5.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 57,
-    category: "3d",
-    image: "/super sized 3D/6.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 58,
-    category: "3d",
-    image: "/super sized 3D/7.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 59,
-    category: "branding",
-    image: "/vehicle branding/28.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 60,
-    category: "3d",
-    image: "/super sized 3D/9.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 61,
-    category: "3d",
-    image: "/super sized 3D/10.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 62,
-    category: "3d",
-    image: "/super sized 3D/11.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 63,
-    category: "3d",
-    image: "/super sized 3D/12.jpg",
-    title: "Super Sized 3D Logo",
-  },
-  {
-    id: 64,
-    category: "branding",
-    image: "/vehicle branding/1.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 65,
-    category: "branding",
-    image: "/vehicle branding/2.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 66,
-    category: "branding",
-    image: "/vehicle branding/3.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 67,
-    category: "branding",
-    image: "/vehicle branding/4.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 68,
-    category: "branding",
-    image: "/vehicle branding/5.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 69,
-    category: "branding",
-    image: "/vehicle branding/6.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 70,
-    category: "branding",
-    image: "/vehicle branding/7.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 71,
-    category: "branding",
-    image: "/vehicle branding/8.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 72,
-    category: "branding",
-    image: "/vehicle branding/9.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 73,
-    category: "branding",
-    image: "/vehicle branding/10.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 74,
-    category: "branding",
-    image: "/vehicle branding/11.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 75,
-    category: "branding",
-    image: "/vehicle branding/12.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 76,
-    category: "signage",
-    image: "/3D signage/13.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 77,
-    category: "signage",
-    image: "/3D signage/14.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 78,
-    category: "signage",
-    image: "/3D signage/15.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 79,
-    category: "signage",
-    image: "/3D signage/17.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 80,
-    category: "signage",
-    image: "/3D signage/18.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 81,
-    category: "signage",
-    image: "/3D signage/19.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 82,
-    category: "signage",
-    image: "/3D signage/20.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 83,
-    category: "signage",
-    image: "/3D signage/21.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 84,
-    category: "signage",
-    image: "/3D signage/22.png",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 85,
-    category: "signage",
-    image: "/3D signage/23.png",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 86,
-    category: "signage",
-    image: "/3D signage/24.png",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 87,
-    category: "signage",
-    image: "/3D signage/29.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 88,
-    category: "signage",
-    image: "/3D signage/30.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 89,
-    category: "signage",
-    image: "/3D signage/31.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 90,
-    category: "signage",
-    image: "/3D signage/32.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 91,
-    category: "signage",
-    image: "/3D signage/33.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 92,
-    category: "signage",
-    image: "/3D signage/34.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 93,
-    category: "signage",
-    image: "/3D signage/35.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 94,
-    category: "signage",
-    image: "/3D signage/36.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 95,
-    category: "signage",
-    image: "/3D signage/37.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 96,
-    category: "signage",
-    image: "/3D signage/38.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 97,
-    category: "signage",
-    image: "/3D signage/39.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 98,
-    category: "signage",
-    image: "/3D signage/40.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 99,
-    category: "signage",
-    image: "/3D signage/41.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 100,
-    category: "signage",
-    image: "/3D signage/42.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 101,
-    category: "signage",
-    image: "/3D signage/43.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 102,
-    category: "signage",
-    image: "/3D signage/44.jpeg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 103,
-    category: "signage",
-    image: "/3D signage/45.jpeg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 104,
-    category: "signage",
-    image: "/3D signage/46.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 105,
-    category: "signage",
-    image: "/3D signage/47.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 106,
-    category: "signage",
-    image: "/3D signage/48.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 107,
-    category: "signage",
-    image: "/3D signage/49.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 108,
-    category: "signage",
-    image: "/3D signage/50.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 109,
-    category: "signage",
-    image: "/3D signage/51.JPG",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 110,
-    category: "signage",
-    image: "/3D signage/52.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 111,
-    category: "signage",
-    image: "/3D signage/53.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 112,
-    category: "signage",
-    image: "/3D signage/54.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 113,
-    category: "signage",
-    image: "/3D signage/55.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 114,
-    category: "branding",
-    image: "/vehicle branding/13.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 115,
-    category: "branding",
-    image: "/vehicle branding/14.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 116,
-    category: "branding",
-    image: "/vehicle branding/15.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 117,
-    category: "branding",
-    image: "/vehicle branding/16.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 118,
-    category: "branding",
-    image: "/vehicle branding/17.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 119,
-    category: "branding",
-    image: "/vehicle branding/18.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 120,
-    category: "branding",
-    image: "/vehicle branding/19.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 121,
-    category: "branding",
-    image: "/vehicle branding/20.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 122,
-    category: "branding",
-    image: "/vehicle branding/21.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 123,
-    category: "branding",
-    image: "/vehicle branding/22.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 124,
-    category: "branding",
-    image: "/vehicle branding/23.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 125,
-    category: "branding",
-    image: "/vehicle branding/24.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 126,
-    category: "branding",
-    image: "/vehicle branding/25.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 127,
-    category: "branding",
-    image: "/vehicle branding/26.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 128,
-    category: "branding",
-    image: "/vehicle branding/27.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 129,
-    category: "fabrication",
-    image: "/fabrication/11.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 130,
-    category: "fabrication",
-    image: "/fabrication/12.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 131,
-    category: "fabrication",
-    image: "/fabrication/13.jpg",
-    title: "Custom Metal Fabrication",
-  },
-  {
-    id: 132,
-    category: "branding",
-    image: "/vehicle branding/30.jpg",
-    title: "Vehicle Wrap Design",
-  },
-  {
-    id: 133,
-    category: "signage",
-    image: "/3D signage/56.jpg",
-    title: "Corporate 3D Signage",
-  },
-  {
-    id: 134,
-    category: "fabrication",
-    image: "/fabrication/14.jpg",
-    title: "Custom Metal Fabrication",
-  },
-];
-
-const categories = [
-  { id: "all", name: "All" },
-  { id: "signage", name: "3D Signage" },
-  { id: "acrylics", name: "Acrylics Laser Cutting" },
-  { id: "cnc", name: "CNC Routing" },
-  { id: "fabrication", name: "Fabrication" },
-  { id: "printing", name: "Large Format Printing" },
-  { id: "cutting", name: "Steel Laser Cutting" },
-  { id: "3d", name: "Super Sized 3D" },
-  { id: "branding", name: "Vehicle Branding" },
-];
+import {
+  getPortfolioItems,
+  getPortfolioCategories,
+} from "@/sanity/lib/queries";
+import type { PortfolioItem, PortfolioCategory } from "@/sanity/lib/queries";
 
 const ITEMS_PER_PAGE = 12;
 
 const Portfolio = () => {
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [categories, setCategories] = useState<PortfolioCategory[]>([]);
   const [filter, setFilter] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    const fetchData = async () => {
+      try {
+        const [itemsData, categoriesData] = await Promise.all([
+          getPortfolioItems(),
+          getPortfolioCategories(),
+        ]);
+        setPortfolioItems(itemsData);
+        setCategories(categoriesData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -850,28 +49,32 @@ const Portfolio = () => {
   const filteredItems =
     filter === "all"
       ? portfolioItems
-      : portfolioItems.filter((item) => item.category === filter);
+      : portfolioItems.filter((item) => item.category.id === filter);
 
-  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+  const allImages = filteredItems.flatMap((item) =>
+    item.images.map((image) => ({
+      src: image,
+      title: item.title,
+      category: item.category.name,
+    }))
+  );
+
+  const totalPages = Math.ceil(allImages.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentItems = filteredItems.slice(startIndex, endIndex);
+  const currentImages = allImages.slice(startIndex, endIndex);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const openLightbox = (index: number) => {
     setLightboxIndex(startIndex + index);
     setLightboxOpen(true);
   };
 
-  const closeLightbox = () => {
-    setLightboxOpen(false);
-  };
-
-  const goToPage = (page: number) => {
-    setCurrentPage(page);
-  };
-
   return (
-    <section id="portfolio" className="py-20 ">
+    <section id="portfolio" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -881,10 +84,21 @@ const Portfolio = () => {
         >
           Our Portfolio
         </motion.h2>
+
         <div className="flex flex-wrap justify-center mb-8 gap-2">
+          <button
+            onClick={() => setFilter("all")}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+              filter === "all"
+                ? "bg-red-800 text-white"
+                : "bg-black text-white hover:bg-red-700"
+            }`}
+          >
+            All
+          </button>
           {categories.map((category) => (
             <button
-              key={category.id}
+              key={category._id}
               onClick={() => setFilter(category.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                 filter === category.id
@@ -896,43 +110,44 @@ const Portfolio = () => {
             </button>
           ))}
         </div>
+
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {currentItems.map((item, index) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {currentImages.map((image, index) => (
                 <motion.div
-                  key={item.id}
+                  key={`${image.src}-${index}`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white dark:bg-black rounded-lg overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                  className="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 cursor-pointer"
                   onClick={() => openLightbox(index)}
                 >
-                  <div className="relative w-full h-48">
-                    <Image
-                      src={item.image || "/placeholder.svg"}
-                      alt={item.title}
-                      layout="fill"
-                      objectFit="cover"
-                      className="transition-opacity duration-300 opacity-0"
-                      onLoadingComplete={(image) =>
-                        image.classList.remove("opacity-0")
-                      }
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                    <p className="text-gray-600 dark:text-red-600 capitalize">
-                      {item.category}
-                    </p>
+                  <Image
+                    src={image.src}
+                    alt={`${image.title} - ${image.category}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent 
+                    opacity-0 group-hover:opacity-100 transition-all duration-300
+                    flex flex-col justify-end p-4"
+                  >
+                    <h3 className="text-white text-sm font-semibold">
+                      {image.title}
+                    </h3>
+                    <p className="text-white/80 text-xs">{image.category}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
+
             {totalPages > 1 && (
               <div className="mt-12 flex justify-center items-center space-x-2">
                 <button
@@ -968,13 +183,15 @@ const Portfolio = () => {
             )}
           </>
         )}
+
+        <Lightbox
+          open={lightboxOpen}
+          close={() => setLightboxOpen(false)}
+          index={lightboxIndex}
+          slides={allImages.map((image) => ({ src: image.src }))}
+          carousel={{ finite: allImages.length <= 1 }}
+        />
       </div>
-      <Lightbox
-        open={lightboxOpen}
-        close={closeLightbox}
-        slides={filteredItems.map((item) => ({ src: item.image }))}
-        index={lightboxIndex}
-      />
     </section>
   );
 };

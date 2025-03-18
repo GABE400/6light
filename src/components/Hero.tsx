@@ -1,9 +1,32 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { getMainHero } from "@/sanity/lib/queries";
 import Link from "next/link";
 
+type MainHero = {
+  tagline: string;
+  primaryButton: {
+    text: string;
+  };
+  secondaryButton: {
+    text: string;
+  };
+};
+
 const Hero = () => {
+  const [heroData, setHeroData] = useState<MainHero | null>(null);
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      const data = await getMainHero();
+      setHeroData(data);
+    };
+    fetchHeroData();
+  }, []);
+
+  if (!heroData) return null;
+
   return (
     <div
       id="home"
@@ -11,21 +34,13 @@ const Hero = () => {
     >
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
       <div className="relative z-20 text-center text-white px-4 sm:px-6 lg:px-8">
-        {/* <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
-        >
-          6 Light Media
-        </motion.h1> */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl sm:text-2xl md:text-3xl mb-8"
         >
-          Illuminating Your Brand with Cutting-Edge Printing Solutions
+          {heroData.tagline}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,16 +49,16 @@ const Hero = () => {
           className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
         >
           <Link
-            href="#services"
+            href="/services"
             className="bg-primary hover:bg-primary-dark bg-red-800 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105"
           >
-            Explore Our Services
+            {heroData.primaryButton.text}
           </Link>
           <Link
             href="/contact"
             className="bg-white hover:bg-gray-100 text-slate-900 text-primary px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105"
           >
-            Get a Quote
+            {heroData.secondaryButton.text}
           </Link>
         </motion.div>
       </div>
@@ -55,7 +70,7 @@ const Hero = () => {
       >
         <a
           href="#about"
-          className="text-white flex flex-col items-center cursor-pointer transition duration-300 hover:text-primary"
+          className="text-white hover:text-gray-400 flex flex-col items-center cursor-pointer transition duration-300 hover:text-primary"
           aria-label="Scroll to services section"
         >
           <span className="mb-2">Scroll Down</span>

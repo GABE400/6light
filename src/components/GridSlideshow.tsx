@@ -4,50 +4,55 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getGridSlideshow, type GridSlideshowData } from "@/sanity/lib/queries";
 
-interface GridSlide {
-  topImages: {
-    src: string;
-    alt: string;
-    title?: string;
-  }[];
-  bottomImages: {
-    src: string;
-    alt: string;
-    title?: string;
-  }[];
-}
-
-interface GridSlideshowProps {
-  slides: GridSlide[];
-  interval?: number;
-}
-
-const GridSlideshow: React.FC<GridSlideshowProps> = ({
-  slides,
-  interval = 5000,
-}) => {
+const GridSlideshow: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideshow, setSlideshow] = useState<GridSlideshowData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!isHovered) {
-      const timer = setInterval(() => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-      }, interval);
-      return () => clearInterval(timer);
-    }
-  }, [interval, isHovered, slides.length]);
+    const fetchData = async () => {
+      try {
+        const data = await getGridSlideshow();
+        setSlideshow(data);
+      } catch (error) {
+        console.error("Error fetching slideshow data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (!slideshow?.slides.length || isHovered) return;
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slideshow.slides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isHovered, slideshow?.slides.length]);
 
   const handlePrev = () => {
+    if (!slideshow) return;
     setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + slides.length) % slides.length
+      (prevSlide) =>
+        (prevSlide - 1 + slideshow.slides.length) % slideshow.slides.length
     );
   };
 
   const handleNext = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    if (!slideshow) return;
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % slideshow.slides.length);
   };
+
+  if (isLoading || !slideshow) {
+    return <div>Loading...</div>; // Consider adding a proper loading component
+  }
 
   return (
     <div
@@ -66,7 +71,7 @@ const GridSlideshow: React.FC<GridSlideshowProps> = ({
             transition={{ duration: 0.5 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            {slides[currentSlide].topImages.map((image, idx) => (
+            {slideshow.slides[currentSlide].topImages.map((image, idx) => (
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
@@ -99,7 +104,7 @@ const GridSlideshow: React.FC<GridSlideshowProps> = ({
             transition={{ duration: 0.5 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            {slides[currentSlide].bottomImages.map((image, idx) => (
+            {slideshow.slides[currentSlide].bottomImages.map((image, idx) => (
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
@@ -144,7 +149,7 @@ const GridSlideshow: React.FC<GridSlideshowProps> = ({
 
         {/* Slide Indicators */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-          {slides.map((_, idx) => (
+          {slideshow.slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}

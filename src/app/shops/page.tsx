@@ -47,37 +47,6 @@ const shops: Shop[] = [
   },
 ];
 
-const products = [
-  { id: 1, image: "/shops/1.jpg" },
-  { id: 2, image: "/shops/2.jpg" },
-  { id: 3, image: "/shops/3.jpg" },
-  { id: 4, image: "/shops/4.jpg" },
-  { id: 5, image: "/shops/5.jpg" },
-  { id: 6, image: "/shops/6.jpg" },
-  { id: 7, image: "/shops/7.jpg" },
-  { id: 8, image: "/shops/8.jpg" },
-  { id: 9, image: "/shops/9.jpg" },
-  { id: 10, image: "/shops/10.jpg" },
-  { id: 11, image: "/shops/11.jpg" },
-  { id: 12, image: "/shops/12.jpg" },
-  { id: 13, image: "/shops/13.jpg" },
-  { id: 14, image: "/shops/14.jpg" },
-  { id: 15, image: "/shops/15.jpg" },
-  { id: 16, image: "/shops/16.jpg" },
-  { id: 17, image: "/shops/17.jpg" },
-  { id: 18, image: "/shops/18.jpg" },
-  { id: 19, image: "/shops/19.jpg" },
-  { id: 20, image: "/shops/20.jpg" },
-  { id: 21, image: "/shops/21.jpg" },
-  { id: 22, image: "/shops/22.jpg" },
-  { id: 23, image: "/shops/23.jpg" },
-  { id: 24, image: "/shops/24.jpg" },
-  { id: 25, image: "/shops/25.jpg" },
-  { id: 26, image: "/shops/26.jpg" },
-  { id: 27, image: "/shops/27.jpg" },
-  { id: 28, image: "/shops/28.jpg" },
-];
-
 const services = [
   {
     name: "Printing, photocopying, scanning",
@@ -120,92 +89,6 @@ export default function ShopsPage() {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
 
-  const heroBackgroundImage = "/img/bg.jpg";
-  const heroSlides = [
-    {
-      images: ["/slides/AA.jpg", "/slides/BB.jpg", "/slides/CC.jpg"],
-    },
-    {
-      images: ["/slides/DD.jpg", "/slides/EE.jpg", "/slides/FF.jpg"],
-    },
-    // Add more slides as needed
-  ];
-
-  const gridSlides = [
-    {
-      topImages: [
-        {
-          src: "/slides/01.jpg",
-          alt: "3D Signage Example 1",
-          title: "",
-        },
-        {
-          src: "/slides/02.jpg",
-          alt: "3D Signage Example 2",
-          title: "",
-        },
-        {
-          src: "/slides/03.jpg",
-          alt: "3D Signage Example 3",
-          title: "",
-        },
-      ],
-      bottomImages: [
-        {
-          src: "/slides/04.jpg",
-          alt: "Print Example 1",
-          title: "",
-        },
-        {
-          src: "/slides/05.jpg",
-          alt: "Print Example 2",
-          title: "",
-        },
-        {
-          src: "/slides/06.jpg",
-          alt: "Print Example 3",
-          title: "",
-        },
-      ],
-    },
-    {
-      topImages: [
-        {
-          src: "/slides/00.jpg",
-          alt: "Fabrication Example 1",
-          title: "Metal Fabrication",
-        },
-        {
-          src: "/slides/001.jpg",
-          alt: "Fabrication Example 2",
-          title: "Custom Structures",
-        },
-        {
-          src: "/slides/002.jpg",
-          alt: "Fabrication Example 3",
-          title: "Architectural Elements",
-        },
-      ],
-      bottomImages: [
-        {
-          src: "/slides/003.jpg",
-          alt: "Design Example 1",
-          title: "Brand Identity",
-        },
-        {
-          src: "/slides/004.jpg",
-          alt: "Design Example 2",
-          title: "Marketing Materials",
-        },
-        {
-          src: "/slides/005.jpg",
-          alt: "Design Example 3",
-          title: "Environmental Graphics",
-        },
-      ],
-    },
-  ];
-
   useEffect(() => {
     if (selectedShop) {
       setIsMapExpanded(true);
@@ -214,12 +97,7 @@ export default function ShopsPage() {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <HeroShops
-        title="Our Shops"
-        subtitle="Visit us at one of our convenient locations in Lusaka"
-        backgroundImage={heroBackgroundImage}
-        slides={heroSlides}
-      />
+      <HeroShops />
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -318,7 +196,7 @@ export default function ShopsPage() {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             Explore Our Work
           </h2>
-          <GridSlideshow slides={gridSlides} />
+          <GridSlideshow />
         </motion.div>
 
         <motion.div
@@ -360,7 +238,7 @@ export default function ShopsPage() {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             Our Products
           </h2>
-          <Products products={products} itemsPerPage={12} />
+          <Products itemsPerPage={12} />
         </motion.div>
       </div>
     </div>
