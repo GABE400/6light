@@ -9,35 +9,6 @@ import HeroShops from "@/components/HeroShops";
 import Products from "@/components/Products";
 import GridSlideshow from "@/components/GridSlideshow";
 
-// Since this is a client component, we need to create a separate file for metadata
-export const generateMetadata = async () => {
-  return {
-    title: "Our Locations | 6 Light Media",
-    description:
-      "Visit 6 Light Media at our convenient locations in Lusaka - EastPark Mall and Pinnacle Mall. Find our business hours, contact details, and available services.",
-    openGraph: {
-      title: "6 Light Media Locations",
-      description:
-        "Find 6 Light Media stores in Lusaka - EastPark Mall and Pinnacle Mall locations.",
-      images: [
-        {
-          url: "https://www.sixlightmedia.com/shops/eastpark-mall.jpg",
-          width: 1200,
-          height: 630,
-          alt: "6 Light Media Store Locations",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "6 Light Media Locations",
-      description:
-        "Find 6 Light Media stores in Lusaka - EastPark Mall and Pinnacle Mall locations.",
-      images: ["https://www.sixlightmedia.com/shops/eastpark-mall.jpg"],
-    },
-  };
-};
-
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 interface Shop {
