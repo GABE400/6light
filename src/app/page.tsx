@@ -14,7 +14,8 @@ import AboutUs from "@/components/AboutUs";
 import ChatBot from "@/components/ChatBot";
 
 export default function Home() {
-  const [backgroundImage, setBackgroundImage] = useState<string>("/Moon.svg"); // Initialize with fallback
+  const [backgroundImage, setBackgroundImage] =
+    useState<string>("/placeholder.svg"); // Initialize with fallback
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
