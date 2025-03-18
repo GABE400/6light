@@ -55,7 +55,7 @@ const Hero = () => {
             {heroData.primaryButton.text}
           </Link>
           <Link
-            href="/contact"
+            href="/contacts"
             className="bg-white hover:bg-gray-100 text-slate-900 text-primary px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105"
           >
             {heroData.secondaryButton.text}

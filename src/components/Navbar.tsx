@@ -13,7 +13,7 @@ const navItems = [
   // { name: "Portfolio", href: "#portfolio" },
   // { name: "About", href: "#about" },
   { name: "Shops", href: "/shops" },
-  { name: "Contact", href: "/contact" },
+  { name: "Contact", href: "/contacts" },
 ];
 
 const ThemeToggle = () => {
