@@ -53,6 +53,7 @@ Our Services
   - Steel Laser Cutting  
   - Computer-Controlled Cutting  
 - Fabrication: Custom fabrication services for various applications.
+- Full Booking: We offer full booking for all our services, ensuring a seamless and comprehensive experience from consultation to final installation.
 
 For these services, please visit our head office at:  
 1265 Fulwe Close, Rhodespark, Lusaka, Zambia, Shop No. 91.
