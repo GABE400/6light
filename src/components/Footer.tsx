@@ -27,7 +27,7 @@ const Footer = () => {
           <div className="text-center text-gray-400">
             <p>
               &copy; {new Date().getFullYear()} Maintained by{" "}
-              <Link href="https://www.techado.dev/" className="text-sky-300">
+              <Link href="https://www.techadotech.com/" className="text-sky-300">
                 Techado Tech Limited
               </Link>
               . All rights reserved.
