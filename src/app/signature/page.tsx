@@ -95,6 +95,12 @@ export default function SignaturePage() {
         <h2>Notes & How to Use</h2>
         <ul>
           <li>
+            <strong>Share this page URL:</strong> When you paste this page link
+            (http://localhost:3000/signature or https://www.sixlightmedia.com/signature)
+            into Gmail or other email providers, they will show a rich preview
+            with the signature information.
+          </li>
+          <li>
             You can share the SVG URL directly (copy URL). Recipients can open
             or download it.
           </li>
