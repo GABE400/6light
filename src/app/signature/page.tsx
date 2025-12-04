@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
-const rawPdfPath = "/6 Light Media email signature_Holiday.svg";
+const rawPdfPath = "/6-light-signature.png";
 const pdfPath = encodeURI(rawPdfPath);
 
 export default function SignaturePage() {
   const [copied, setCopied] = useState<string | null>(null);
-  const [displayUrl, setDisplayUrl] = useState(pdfPath);
 
   const getFullUrl = () => {
     if (typeof window === "undefined") return pdfPath;
@@ -35,10 +34,6 @@ export default function SignaturePage() {
 
   const pdfUrl = getFullUrl();
 
-  useEffect(() => {
-    setDisplayUrl(window.location.origin + pdfPath);
-  }, []);
-
   // const htmlSnippet = `<img src="${pdfUrl}" alt="6 Light Media Email Signature" />`;
 
   return (
@@ -52,10 +47,10 @@ export default function SignaturePage() {
     >
       <h1>6 Light Media — Email Signature</h1>
       <p>
-        The SVG signature:
+        The signature image:
         <br />
         <Image
-          src={displayUrl}
+          src={pdfPath}
           alt="6 Light Media Email Signature"
           width={600}
           height={200}
@@ -64,7 +59,7 @@ export default function SignaturePage() {
       </p>
 
       <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <button onClick={() => window.open(pdfPath, "_blank")}>Open SVG</button>
+        <button onClick={() => window.open(pdfPath, "_blank")}>Open Image</button>
         {/* <a href={pdfPath} download style={{ textDecoration: "none" }}>
           <button>Download SVG</button>
         </a> */}
@@ -83,7 +78,7 @@ export default function SignaturePage() {
         <div style={{ border: "1px solid #ddd", height: 640 }}>
           <iframe
             src={pdfPath}
-            title="Signature SVG"
+            title="Signature Image"
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -101,23 +96,22 @@ export default function SignaturePage() {
             with the signature information.
           </li>
           <li>
-            You can share the SVG URL directly (copy URL). Recipients can open
+            You can share the image URL directly (copy URL). Recipients can open
             or download it.
           </li>
           <li>
-            Most email clients (Gmail, Outlook) do not support embedding an SVG
-            inside an email signature. They accept HTML or images.
+            The PNG format is widely supported by email clients (Gmail, Outlook)
+            and will display properly when the link is pasted.
           </li>
           <li>
-            Recommended: use the SVG directly or convert to a PNG/JPG (or slice
-            into images), place the images in the `public/` folder, then use an
-            HTML snippet with an img tag pointing to the hosted image for the
-            signature.
+            This signature uses a PNG image that is hosted in the `public/` folder,
+            which ensures compatibility with all email clients and proper preview
+            display when sharing the link.
           </li>
           <li>
-            This page provides an HTML snippet with an img tag that embeds the
-            SVG directly in your email signature. Copy and paste it into your
-            email client signature editor.
+            When you paste this page URL into Gmail, it will show a preview with
+            the signature image. You can also use the image URL directly in your
+            email signature.
           </li>
         </ul>
       </section>
