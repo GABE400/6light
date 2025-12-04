@@ -13,9 +13,9 @@ export const metadata: Metadata = {
     siteName: "6 Light Media",
     images: [
       {
-        url: "https://www.sixlightmedia.com/6%20Light%20Media%20email%20signature_Holiday.svg",
-        width: 600,
-        height: 200,
+        url: "https://www.sixlightmedia.com/6-light-signature.png",
+        width: 1200,
+        height: 400,
         alt: "6 Light Media Email Signature",
       },
     ],
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "6 Light Media - Email Signature",
     description:
       "Professional email signature for 6 Light Media. Download and use this signature for your email communications.",
-    images: ["https://www.sixlightmedia.com/6%20Light%20Media%20email%20signature_Holiday.svg"],
+    images: ["https://www.sixlightmedia.com/6-light-signature.png"],
   },
 };
 

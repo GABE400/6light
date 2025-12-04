@@ -70,7 +70,7 @@ export default function Loader() {
                 }}
               >
                 <Image
-                  src="/6 Light Logo.png"
+                  src="/logo.png"
                   alt="6 Light Media"
                   width={300}
                   height={300}

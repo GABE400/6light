@@ -39,7 +39,7 @@ export default function SignaturePage() {
     setDisplayUrl(window.location.origin + pdfPath);
   }, []);
 
-  const htmlSnippet = `<img src="${pdfUrl}" alt="6 Light Media Email Signature" />`;
+  // const htmlSnippet = `<img src="${pdfUrl}" alt="6 Light Media Email Signature" />`;
 
   return (
     <div
@@ -65,15 +65,15 @@ export default function SignaturePage() {
 
       <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
         <button onClick={() => window.open(pdfPath, "_blank")}>Open SVG</button>
-        <a href={pdfPath} download style={{ textDecoration: "none" }}>
+        {/* <a href={pdfPath} download style={{ textDecoration: "none" }}>
           <button>Download SVG</button>
-        </a>
-        <button onClick={() => copyToClipboard(pdfUrl, "URL copied")}>
+        </a> */}
+        <button onClick={() => copyToClipboard(pdfUrl, "URL copied")} className="text-sky-500">
           Copy URL
         </button>
-        <button onClick={() => copyToClipboard(htmlSnippet, "HTML copied")}>
+        {/* <button onClick={() => copyToClipboard(htmlSnippet, "HTML copied")}>
           Copy HTML Snippet
-        </button>
+        </button> */}
       </div>
 
       {copied && <div style={{ marginTop: 10, color: "green" }}>{copied}</div>}
