@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -15,13 +15,10 @@ const SlideShow: React.FC<SlideShowProps> = ({ images, interval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [interval]);
+  const handleNext = useCallback(() => {
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }, [images.length]);
 
   const handlePrev = () => {
     setDirection(-1);
@@ -30,10 +27,13 @@ const SlideShow: React.FC<SlideShowProps> = ({ images, interval = 5000 }) => {
     );
   };
 
-  const handleNext = () => {
-    setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [interval, handleNext]);
 
   const slideVariants = {
     enter: (direction: number) => ({
