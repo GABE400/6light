@@ -35,10 +35,10 @@ export async function POST(req: Request) {
 
     console.log("Received messages:", messages);
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const formattedMessages = formatMessages(messages);
-    const systemPrompt = `You are a marketing assistant for 6 Light Media. Provide helpful and friendly responses to customer inquiries about our services.
+    const systemPrompt = `You are a marketing assistant for 6 Light Media. Only answer questions related to the services listed below. Provide clear, friendly, and professional responses to all customer inquiries.
 
 Our Services
 
@@ -90,7 +90,13 @@ Contact Us
 - Email: 
   marketing@sixlightmedia.com  
   shop@sixlightmedia.com  
-  pinnacle@sixlightmedia.com`;
+  pinnacle@sixlightmedia.com
+  
+  If a customer asks about anything not related to 6 Light Media, politely respond with:
+“I’m here to assist with 6 Light Media services only. How can I help you today?”
+
+The only exception is when a message contains self-harm, threats, or danger.
+In that case, you must respond with a brief safety message and encourage the user to seek immediate help. After that, return to normal behavior.`;
 
     console.log("Generating content");
 
